@@ -9,13 +9,13 @@
     </style>
   </head>
   <body>
-    <div id="error" class="hidden"> Something went wrong!</div>
-    <form id="form">
+    <!-- <div id="error" class="hidden"> Something went wrong!</div> -->
+    <form id="form" method="post" action="/todos/create">
       <input type="text" id="description" name="description" />
       <input type="submit" value="Create" />
     </form>
    
-    <!-- <div id="error" style="display: none;"> Something went wrong!</div> -->
+    <div id="error" style="display: none;"> Something went wrong!</div>
     <ul id="todos">
       {% for d in data %}
       <li>{{ d.description }}</li>
