@@ -9,11 +9,12 @@
     </style>
   </head>
   <body>
+    <div id="error" class="hidden"> Something went wrong!</div>
     <form id="form">
-      <input type="text" name="description" />
+      <input type="text" id="description" name="description" />
       <input type="submit" value="Create" />
     </form>
-    <div id="error" class="hidden"> Something went wrong!</div>
+   
     <!-- <div id="error" style="display: none;"> Something went wrong!</div> -->
     <ul id="todos">
       {% for d in data %}
@@ -36,8 +37,9 @@
                 return response.json();
             })
             .then(function(jsonResponse){
-                console.log(jsonResponse);
-                liItem = document.createElement("LI");
+                console.log("response: " , jsonResponse);
+                liItem = document.createElement("li");
+                liItem.innerHTML = jsonResponse['description'];
                 document.getElementById('todos').appendChild(liItem);
                 document.getElementById('error').className = 'hidden';
             })
@@ -50,7 +52,7 @@
 </html>
 
 
-code with forms to create data/record
+<!-- code with forms to create data/record -->
 <!-- <html>
   <head>
     <title>Todo App</title>
