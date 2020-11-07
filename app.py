@@ -82,6 +82,25 @@ def set_completed_todo(todo_id):
     db.session.close()
   return redirect(url_for('index'))
 
+# todo = Todo.query.get(todo_id) 
+# db.session.delete(todo) # or...
+# Todo.query.filter_by(id=todo_id).delete()
+# db.session.commit()
+  @app.route('/todos/<todo_id>/delete-completed', methods=['DELETE'])
+def delete_completed_todo(todo_id):
+  try:
+    completed = request.get_json()['completed']
+    print('completed', completed)
+    todo = Todo.query.get(todo_id) 
+    db.session.delete(todo) # or...
+    Todo.query.filter_by(id=todo_id).delete()
+    db.session.commit()
+  except:
+    db.session.rollback()
+  finally:
+    db.session.close()
+  return redirect(url_for('index'))
+
 @app.route('/')
 def index():
-  return render_template('index.html', data=Todo.query.all())
+  return render_template('index.html', data=Todo.query.order_by('id').all())
